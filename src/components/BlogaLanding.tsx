@@ -68,7 +68,7 @@ const LeftSection = styled.div`
   position: relative;
 
   @media (min-width: 1024px) {
-    width: 50%;
+    width: 40%; // Reduced from 50%
     padding-right: 32px;
     height: 100%;
     overflow: hidden;
@@ -84,10 +84,35 @@ const RightSection = styled.div`
   align-items: center;
 
   @media (min-width: 1024px) {
-    width: 50%;
+    width: 60%; // Increased from 50%
     height: 100%;
     padding-top: 48px;
     align-items: start;
+  }
+`;
+
+const ImageContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+
+  @media (min-width: 1024px) {
+    width: 100%; // Increased from 90%
+    height: 100%; // Increased from 90%
+    padding-left: 32px; // Add some padding from the left section
+  }
+`;
+
+const AppImage = styled.img`
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+
+  @media (min-width: 1024px) {
+    padding-bottom: 67px;
+    max-height: 100%; // Increased from 90%
   }
 `;
 
@@ -113,29 +138,6 @@ const CenteredContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-`;
-
-const ImageContainer = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-
-  @media (min-width: 1024px) {
-    width: 90%;
-    height: 90%;
-  }
-`;
-
-const AppImage = styled.img`
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-
-  @media (min-width: 1024px) {
-    max-height: 90%;
-  }
 `;
 
 const FeaturesWrapper = styled.div`
