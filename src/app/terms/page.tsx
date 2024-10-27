@@ -41,8 +41,8 @@ export default function Terms() {
               </ListItem>
               <ListItem>
                 Receive and use any free supplementary software code or update
-                of the App incorporating "patches" and corrections of errors as
-                we may provide to you
+                of the App incorporating &ldquo;patches&rdquo; and corrections
+                of errors as we may provide to you
               </ListItem>
             </List>
           </Section>
