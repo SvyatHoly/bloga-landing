@@ -39,7 +39,7 @@ const GlobalStyles = styled.div`
 `;
 
 const Content = styled.div`
-  max-width: 1200px;
+  max-width: 1540px;
   margin: 0 auto;
   padding: 0 24px;
 
@@ -68,7 +68,7 @@ const LeftSection = styled.div`
   position: relative;
 
   @media (min-width: 1024px) {
-    width: 40%; // Reduced from 50%
+    width: 50%;
     padding-right: 32px;
     height: 100%;
     overflow: hidden;
@@ -84,7 +84,7 @@ const RightSection = styled.div`
   align-items: center;
 
   @media (min-width: 1024px) {
-    width: 60%; // Increased from 50%
+    width: 50%;
     height: 100%;
     padding-top: 48px;
     align-items: start;
@@ -111,8 +111,8 @@ const AppImage = styled.img`
   object-fit: contain;
 
   @media (min-width: 1024px) {
-    padding-bottom: 67px;
-    max-height: 100%; // Increased from 90%
+    padding-bottom: 92px;
+    max-height: 90%; // Increased from 90%
   }
 `;
 
