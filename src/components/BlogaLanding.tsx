@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { AppleIcon } from "./Icons/AppIcon";
 import { FeatureIcon } from "./Icons/FeatureIcon";
@@ -12,9 +12,7 @@ const Container = styled.div`
   color: white;
 
   @media (max-width: 1023px) {
-    /* Add extra scroll space at bottom */
     padding-bottom: 100px;
-    /* Hide scrollbar */
     scrollbar-width: none;
     -ms-overflow-style: none;
     &::-webkit-scrollbar {
@@ -28,7 +26,6 @@ const Container = styled.div`
   }
 `;
 
-// Make sure body also hides scrollbar on mobile
 const GlobalStyles = styled.div`
   @media (max-width: 1023px) {
     body {
@@ -369,21 +366,21 @@ const DownloadButton = styled.button`
 `;
 
 const LandingPage = () => {
-  React.useEffect(() => {
+  const [isDesktop, setIsDesktop] = useState(true);
+
+  useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 1024) {
-        document.body.style.overflow = "hidden";
-      } else {
-        document.body.style.overflow = "auto";
-      }
+      const isDesktopView = window.innerWidth >= 1024;
+      setIsDesktop(isDesktopView);
+      document.body.style.overflow = isDesktopView ? "hidden" : "auto";
     };
 
-    handleResize();
+    handleResize(); // Initial call
     window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("resize", handleResize);
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = "auto"; // Cleanup
     };
   }, []);
 
@@ -435,8 +432,8 @@ const LandingPage = () => {
                   </CenteredContainer>
                 </MainContent>
 
-                {/* Footer moved outside ContentWrapper for desktop */}
-                {window?.innerWidth >= 1024 && (
+                {/* Footer for desktop */}
+                {isDesktop && (
                   <Footer>
                     <FooterLink href="mailto:slava@arma-app.com">
                       Contact us
@@ -453,7 +450,7 @@ const LandingPage = () => {
                 <AppImage src="AppImage.png" alt="App Preview" />
               </ImageContainer>
               {/* Footer for mobile */}
-              {window?.innerWidth < 1024 && (
+              {!isDesktop && (
                 <Footer>
                   <FooterLink href="mailto:slava@arma-app.com">
                     Contact us
