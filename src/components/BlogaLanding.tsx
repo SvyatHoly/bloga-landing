@@ -449,7 +449,7 @@ const LandingPage = () => {
 
             <RightSection>
               <ImageContainer>
-                <AppImage src="AppImage.png" alt="App Preview" />
+                <AppImage src="AppImage.webp" alt="App Preview" />
               </ImageContainer>
               {/* Footer for mobile */}
               {!isDesktop && (
