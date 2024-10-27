@@ -11,9 +11,33 @@ const Container = styled.div`
   background: black;
   color: white;
 
+  @media (max-width: 1023px) {
+    /* Add extra scroll space at bottom */
+    padding-bottom: 100px;
+    /* Hide scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
   @media (min-width: 1024px) {
     height: 100vh;
     overflow: hidden;
+  }
+`;
+
+// Make sure body also hides scrollbar on mobile
+const GlobalStyles = styled.div`
+  @media (max-width: 1023px) {
+    body {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
   }
 `;
 
@@ -58,6 +82,7 @@ const RightSection = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
@@ -209,8 +234,15 @@ const Footer = styled.div`
   justify-content: center;
   margin-top: auto;
 
+  @media (max-width: 1023px) {
+    order: 2;
+    padding-bottom: 120px; // Increased padding to account for download button
+  }
+
   @media (min-width: 1024px) {
     justify-content: flex-start;
+    order: unset;
+    padding-bottom: 92px;
   }
 `;
 
@@ -242,7 +274,7 @@ const DownloadButtonWrapper = styled.div<{ $isMobile: boolean }>`
   bottom: 0;
   left: 0;
   width: 100%;
-  padding: 30px;
+  padding: 30px 0;
   display: flex;
   justify-content: center;
   // Add padding to account for button scale
@@ -339,7 +371,6 @@ const DownloadButton = styled.button`
 const LandingPage = () => {
   React.useEffect(() => {
     const handleResize = () => {
-      // Only set body overflow on desktop
       if (window.innerWidth >= 1024) {
         document.body.style.overflow = "hidden";
       } else {
@@ -347,12 +378,12 @@ const LandingPage = () => {
       }
     };
 
-    handleResize(); // Initial call
+    handleResize();
     window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("resize", handleResize);
-      document.body.style.overflow = "auto"; // Cleanup
+      document.body.style.overflow = "auto";
     };
   }, []);
 
@@ -363,70 +394,86 @@ const LandingPage = () => {
   ];
 
   return (
-    <Container>
-      <Content>
-        <MainSection>
-          <LeftSection>
-            <ContentWrapper>
-              <Logo>
-                <LogoIcon src="/Icon_Light.png" alt="Bloga Logo" />
-                <LogoText>Bloga</LogoText>
-              </Logo>
+    <>
+      <GlobalStyles />
+      <Container>
+        <Content>
+          <MainSection>
+            <LeftSection>
+              <ContentWrapper>
+                <Logo>
+                  <LogoIcon src="/Icon_Light.png" alt="Bloga Logo" />
+                  <LogoText>Bloga</LogoText>
+                </Logo>
 
-              <MainContent>
-                <CenteredContainer>
-                  <Title>Swipe, Clean, Sort.</Title>
+                <MainContent>
+                  <CenteredContainer>
+                    <Title>Swipe, Clean, Sort.</Title>
 
-                  <Subtitle>
-                    Sorting your media library with user-friendly features and a
-                    pleasant interface
-                  </Subtitle>
+                    <Subtitle>
+                      Sorting your media library with user-friendly features and
+                      a pleasant interface
+                    </Subtitle>
 
-                  <FeaturesWrapper>
-                    <FeaturesList>
-                      {features.map((feature) => (
-                        <FeatureTag key={feature.id}>
-                          {feature.icon}
-                          {feature.text}
-                        </FeatureTag>
-                      ))}
-                    </FeaturesList>
-                  </FeaturesWrapper>
+                    <FeaturesWrapper>
+                      <FeaturesList>
+                        {features.map((feature) => (
+                          <FeatureTag key={feature.id}>
+                            {feature.icon}
+                            {feature.text}
+                          </FeatureTag>
+                        ))}
+                      </FeaturesList>
+                    </FeaturesWrapper>
 
-                  <DownloadButtonWrapper $isMobile={false}>
-                    <DownloadButton>
-                      <AppleIcon />
-                      <span>Download</span>
-                    </DownloadButton>
-                  </DownloadButtonWrapper>
-                </CenteredContainer>
-              </MainContent>
+                    <DownloadButtonWrapper $isMobile={false}>
+                      <DownloadButton>
+                        <AppleIcon />
+                        <span>Download</span>
+                      </DownloadButton>
+                    </DownloadButtonWrapper>
+                  </CenteredContainer>
+                </MainContent>
 
-              <Footer>
-                <FooterLink href="mailto:slava@arma-app.com">
-                  Contact us
-                </FooterLink>
-                <FooterLink href="/terms">Terms</FooterLink>
-                <FooterLink href="/privacy">Privacy</FooterLink>
-              </Footer>
-            </ContentWrapper>
-          </LeftSection>
+                {/* Footer moved outside ContentWrapper for desktop */}
+                {window?.innerWidth >= 1024 && (
+                  <Footer>
+                    <FooterLink href="mailto:slava@arma-app.com">
+                      Contact us
+                    </FooterLink>
+                    <FooterLink href="/terms">Terms</FooterLink>
+                    <FooterLink href="/privacy">Privacy</FooterLink>
+                  </Footer>
+                )}
+              </ContentWrapper>
+            </LeftSection>
 
-          <RightSection>
-            <ImageContainer>
-              <AppImage src="AppImage.png" alt="App Preview" />
-            </ImageContainer>
-          </RightSection>
-        </MainSection>
+            <RightSection>
+              <ImageContainer>
+                <AppImage src="AppImage.png" alt="App Preview" />
+              </ImageContainer>
+              {/* Footer for mobile */}
+              {window?.innerWidth < 1024 && (
+                <Footer>
+                  <FooterLink href="mailto:slava@arma-app.com">
+                    Contact us
+                  </FooterLink>
+                  <FooterLink href="/terms">Terms</FooterLink>
+                  <FooterLink href="/privacy">Privacy</FooterLink>
+                </Footer>
+              )}
+            </RightSection>
+          </MainSection>
 
-        <DownloadButtonWrapper $isMobile={true}>
-          <DownloadButton>
-            <AppleIcon />
-            <span>Download</span>
-          </DownloadButton>
-        </DownloadButtonWrapper>
-      </Content>
-    </Container>
+          <DownloadButtonWrapper $isMobile={true}>
+            <DownloadButton>
+              <AppleIcon />
+              <span>Download</span>
+            </DownloadButton>
+          </DownloadButtonWrapper>
+        </Content>
+      </Container>
+    </>
   );
 };
 
