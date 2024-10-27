@@ -327,7 +327,7 @@ const DownloadButton = styled.button`
   span {
     font-family: "Inter", sans-serif;
     font-size: 28px;
-    font-weight: 700;
+    font-weight: 600;
     text-align: left;
     position: relative;
     z-index: 1;
