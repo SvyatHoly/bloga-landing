@@ -370,6 +370,11 @@ const DownloadButton = styled.button`
 const LandingPage = () => {
   const [isDesktop, setIsDesktop] = useState(true);
 
+  const handleDownload = () => {
+    window.location.href =
+      "https://apps.apple.com/us/app/bloga-swipe-clean-sort/id6733253260";
+  };
+
   useEffect(() => {
     const handleResize = () => {
       const isDesktopView = window.innerWidth >= 1024;
@@ -426,7 +431,7 @@ const LandingPage = () => {
                     </FeaturesWrapper>
 
                     <DownloadButtonWrapper $isMobile={false}>
-                      <DownloadButton>
+                      <DownloadButton onClick={handleDownload}>
                         <AppleIcon />
                         <span>Download</span>
                       </DownloadButton>
@@ -465,7 +470,7 @@ const LandingPage = () => {
           </MainSection>
 
           <DownloadButtonWrapper $isMobile={true}>
-            <DownloadButton>
+            <DownloadButton onClick={handleDownload}>
               <AppleIcon />
               <span>Download</span>
             </DownloadButton>
